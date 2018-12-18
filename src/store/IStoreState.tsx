@@ -1,16 +1,12 @@
-export default interface IStoreState {
-    readonly tableList: IListStoreState;
-}
-
-export interface IListStoreState {
-    list: ReadonlyArray<IItemStoreState>;
+export interface IStoreState {
+    list: IItemStoreState[];
 }
 
 export interface IItemStoreState {
-    'id': number,
-    'weight': number,
-    'kkal': number,
-    'title': string,
-    'importer': string,
-    'exist': boolean,
+    amount: number,
+    exist: boolean,
+    id: number,
+    importer: string,
+    title: string,
+    weight: number,
 }
