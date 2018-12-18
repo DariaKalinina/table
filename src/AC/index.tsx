@@ -1,13 +1,15 @@
 export enum Key{
-  TEST = 'TEST'
+  SORT = 'SORT'
 }
 
-export interface ITest {
-  readonly type: Key.TEST;
-};
+interface ISort {
+  readonly type: Key.SORT;
+  readonly payload: string;
+}
 
-export const testAction = (): ITest => ({
-    type: Key.TEST
+export const sortList = (sortValue: string): ISort => ({
+    type: Key.SORT,
+    payload: sortValue
 });
 
 

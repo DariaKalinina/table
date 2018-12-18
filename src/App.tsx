@@ -29,7 +29,7 @@ class App extends React.Component<IStoreState> {
         return (
             <div className="app">
                 <Header/>
-                <Table list={this.props.list} />
+                <Table list={this.props.list}/>
                 <Footer/>
             </div>
         );
@@ -40,5 +40,6 @@ class App extends React.Component<IStoreState> {
 const mapStateToProps = (state: IStoreState) => ({
     list: state.list
 });
+
 
 export default connect(mapStateToProps, {})(App);
