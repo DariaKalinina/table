@@ -7,7 +7,7 @@ import Table from './components/Table';
 import './App.css';
 
 interface IStoreState {
-    list: IItemStoreState[]
+    list: IItemStoreState[];
 }
 
 interface IItemStoreState {
@@ -25,7 +25,6 @@ class App extends React.Component<IStoreState> {
     }
 
     public render() {
-
         console.log('ушли', this.props);
         return (
             <div className="app">
