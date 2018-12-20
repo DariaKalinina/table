@@ -81,35 +81,43 @@ export default function list(
         action: ISort
     ) {
     const {type, payload} = action;
-
+    console.log('action такой -- ', action);
+    let sortedList = state;
     switch (type) {
         case 'SORT':
-            let sortedList = state;
+
             switch (payload) {
                 case 'title':
+                    console.log('click пришел по title');
                     sortedList = state.sort(sortByTitle);
                     break;
 
                 case 'importer':
+                    console.log('click пришел по importer');
                     sortedList = state.sort(sortByImporter);
                     break;
 
                 case 'amount':
+                    console.log('click пришел по amount');
                     sortedList = state.sort(sortByAmount);
                     break;
 
                 case 'id':
+                    console.log('click пришел по id');
                     sortedList = state.sort(sortById);
                     break;
 
                 case 'weight':
+                    console.log('click пришел по weight');
                     sortedList = state.sort(sortByWeight);
                     break;
 
                 case 'exist':
+                    console.log('click пришел по exist');
                     sortedList = state.sort(sortByExist);
                     break;
             }
+            console.log('sortedList ---------', sortedList);
             return sortedList;
     }
 
