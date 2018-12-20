@@ -1,82 +1,39 @@
 import * as React from 'react';
 import TableRow from './TableRow';
-import {ISort, sortList} from "../AC";
-import {bindActionCreators, Dispatch} from "redux";
-import {connect} from "react-redux";
+import { SortListAction, sortProductList } from "../AC";
+import { bindActionCreators, Dispatch } from "redux";
+import { connect } from "react-redux";
+import { ProductListState } from "../store/storeTypes";
 
-interface IStoreState {
-    list: IItemStoreState[],
+interface StoreTable {
+    productList: ProductListState[],
 }
 
-interface IAction {
-    sortList: (sortValue: string) => ISort;
+interface TableAction {
+    sortProductList: (sortValue: string) => SortListAction;
 }
 
-type OwnProps = IStoreState & IAction;
+type OwnProps = StoreTable & TableAction;
 
-
-interface IItemStoreState {
-    amount: number,
-    exist: boolean,
-    id: number,
-    importer: string,
-    title: string,
-    weight: number,
-}
 
 class Table extends React.Component<OwnProps> {
     constructor(props: OwnProps) {
         super(props);
-        console.log('пришли!!!!!!!!!!!!!!!', props);
         this.handleClick = this.handleClick.bind(this);
     }
 
-
     handleClick = (e: React.MouseEvent<HTMLDivElement>): void | undefined => {
-        e.preventDefault();
-        let targetElement = e.currentTarget.dataset['sort'];
-        const { sortList } = this.props;
+        const targetElement = e.currentTarget.dataset['sort'];
+        const { sortProductList } = this.props;
 
-        console.log('click', targetElement);
-
-        switch (targetElement) {
-            case 'title':
-                console.log('click по title');
-                sortList('title');
-                break;
-
-            case 'importer':
-                console.log('click по importer');
-                sortList('importer');
-                break;
-
-            case 'amount':
-                console.log('click по amount');
-                sortList('amount');
-                break;
-
-            case 'id':
-                console.log('click по id');
-                sortList('id');
-                break;
-
-            case 'weight':
-                console.log('click по weight');
-                sortList('weight');
-                break;
-
-            case 'exist':
-                console.log('click по exist');
-                sortList('exist');
-                break;
+        if (targetElement) {
+            sortProductList(targetElement);
         }
-
     };
 
 
-    public render(){
-        const { list } = this.props;
-        console.log('list -----!!!!----- ', list);
+    render(){
+        const { productList } = this.props;
         return (
             <div className="table">
                 <div data-sort='title' onClick={this.handleClick}>Сортировка по title</div>
@@ -86,7 +43,7 @@ class Table extends React.Component<OwnProps> {
                 <div data-sort='exist' onClick={this.handleClick}>Сортировка по exist</div>
                 <table>
                     <tbody>
-                        <tr key={'id'}>
+                        <tr>
                             <th key={'title'}>Название</th>
                             <th key={'amount'}>Количество</th>
                             <th key={'importer'}>Имортер</th>
@@ -94,8 +51,7 @@ class Table extends React.Component<OwnProps> {
                             <th key={'exist'}>Наличие на складе</th>
                         </tr>
                         {
-                            list.map( (item: IItemStoreState, index: number) => {
-                                console.log('item ушел', item);
+                            productList.map( (item: ProductListState, index: number) => {
                                 return <TableRow key={index} item={item}/>;
                             })
                         }
@@ -106,15 +62,15 @@ class Table extends React.Component<OwnProps> {
     }
 }
 
-const mapStateToProps = (state: IStoreState) => ({
-    list: state.list
+const mapStateToProps = (state: StoreTable) => ({
+    productList: state.productList
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<ISort>) => {
+const mapDispatchToProps = (dispatch: Dispatch<SortListAction>) => {
     return {
-        sortList: bindActionCreators(sortList, dispatch)
+        sortProductList: bindActionCreators(sortProductList, dispatch)
     }
 };
 
-export default connect<IStoreState, IAction, {}>(mapStateToProps, mapDispatchToProps)(Table);
+export default connect<StoreTable, TableAction, {}>(mapStateToProps, mapDispatchToProps)(Table);
 

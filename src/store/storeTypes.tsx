@@ -1,8 +1,8 @@
-export interface IStoreState {
-    list: IItemStoreState[];
+export interface Store {
+    productList: ProductListState[];
 }
 
-export interface IItemStoreState {
+export interface ProductListState {
     amount: number,
     exist: boolean,
     id: number,

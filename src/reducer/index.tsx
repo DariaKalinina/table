@@ -1,7 +1,7 @@
-import { IStoreState } from "../store/IStoreState";
+import { Store } from "../store/storeTypes";
 import { combineReducers } from 'redux';
-import list from './list';
+import productList from './productList';
 
-export default combineReducers<IStoreState>({
-    list
+export default combineReducers<Store>({
+    productList
 })

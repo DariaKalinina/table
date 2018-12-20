@@ -1,20 +1,12 @@
 import * as React from 'react';
+import { ProductListState } from "../store/storeTypes";
 
-interface IItemStoreState {
-    item: {
-        amount: number,
-        exist: boolean,
-        id: number,
-        importer: string,
-        title: string,
-        weight: number,
-    }
+interface StoreRow {
+    item: ProductListState
 }
 
-
-class TableRow extends React.Component<IItemStoreState> {
-    public render() {
-        console.log('item пришел', this.props);
+class TableRow extends React.Component<StoreRow> {
+    render() {
         const { item } = this.props;
         return (
             <tr className="table__row" key={item.id}>
