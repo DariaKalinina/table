@@ -44,11 +44,11 @@ class Table extends React.Component<OwnProps> {
                 <table>
                     <tbody>
                         <tr>
-                            <th key={'title'}>Название</th>
-                            <th key={'amount'}>Количество</th>
-                            <th key={'importer'}>Имортер</th>
-                            <th key={'weight'}>Вес</th>
-                            <th key={'exist'}>Наличие на складе</th>
+                            <th>Название</th>
+                            <th>Количество</th>
+                            <th>Имортер</th>
+                            <th>Вес</th>
+                            <th>Наличие на складе</th>
                         </tr>
                         {
                             productList.map( (item: ProductListState, index: number) => {

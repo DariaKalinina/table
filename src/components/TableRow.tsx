@@ -9,12 +9,12 @@ class TableRow extends React.Component<StoreRow> {
     render() {
         const { item } = this.props;
         return (
-            <tr className="table__row" key={item.id}>
-                <td className="table__item" key={item.id+item.title}>{item.title}</td>
-                <td className="table__item" key={item.id+item.amount}>{item.amount}</td>
-                <td className="table__item" key={item.id+item.importer}>{item.importer}</td>
-                <td className="table__item" key={item.id+item.weight}>{item.weight}</td>
-                <td className="table__item" key={item.id+item.title+item.importer}>{item.exist ? 'Есть' : 'Нет'}</td>
+            <tr className="table__row">
+                <td className="table__item">{item.title}</td>
+                <td className="table__item">{item.amount}</td>
+                <td className="table__item">{item.importer}</td>
+                <td className="table__item">{item.weight}</td>
+                <td className="table__item">{item.exist ? 'Есть' : 'Нет'}</td>
             </tr>
         );
     }
