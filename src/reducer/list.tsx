@@ -82,43 +82,43 @@ export default function list(
     ) {
     const {type, payload} = action;
     console.log('action такой -- ', action);
-    let sortedList = state;
+    let newState = [...state];
     switch (type) {
         case 'SORT':
 
             switch (payload) {
                 case 'title':
                     console.log('click пришел по title');
-                    sortedList = state.sort(sortByTitle);
+                    newState = newState.sort(sortByTitle);
                     break;
 
                 case 'importer':
                     console.log('click пришел по importer');
-                    sortedList = state.sort(sortByImporter);
+                    newState = newState.sort(sortByImporter);
                     break;
 
                 case 'amount':
                     console.log('click пришел по amount');
-                    sortedList = state.sort(sortByAmount);
+                    newState = newState.sort(sortByAmount);
                     break;
 
                 case 'id':
                     console.log('click пришел по id');
-                    sortedList = state.sort(sortById);
+                    newState = newState.sort(sortById);
                     break;
 
                 case 'weight':
                     console.log('click пришел по weight');
-                    sortedList = state.sort(sortByWeight);
+                    newState = newState.sort(sortByWeight);
                     break;
 
                 case 'exist':
                     console.log('click пришел по exist');
-                    sortedList = state.sort(sortByExist);
+                    newState = newState.sort(sortByExist);
                     break;
             }
-            console.log('sortedList ---------', sortedList);
-            return sortedList;
+            console.log('sortedList ---------', newState);
+            return newState;
     }
 
     return state

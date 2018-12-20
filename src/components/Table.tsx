@@ -1,13 +1,19 @@
 import * as React from 'react';
 import TableRow from './TableRow';
-import {ISort, ISortFunction, sortList} from "../AC";
+import {ISort, sortList} from "../AC";
 import {bindActionCreators, Dispatch} from "redux";
 import {connect} from "react-redux";
 
-type IStoreState = {
+interface IStoreState {
     list: IItemStoreState[],
-    sortList: ISortFunction,
 }
+
+interface IAction {
+    sortList: (sortValue: string) => ISort;
+}
+
+type OwnProps = IStoreState & IAction;
+
 
 interface IItemStoreState {
     amount: number,
@@ -18,10 +24,10 @@ interface IItemStoreState {
     weight: number,
 }
 
-class Table extends React.Component<IStoreState> {
-    constructor(props: IStoreState) {
+class Table extends React.Component<OwnProps> {
+    constructor(props: OwnProps) {
         super(props);
-        console.log('пришли', props);
+        console.log('пришли!!!!!!!!!!!!!!!', props);
         this.handleClick = this.handleClick.bind(this);
     }
 
@@ -70,7 +76,7 @@ class Table extends React.Component<IStoreState> {
 
     public render(){
         const { list } = this.props;
-        console.log('list ----- ', list);
+        console.log('list -----!!!!----- ', list);
         return (
             <div className="table">
                 <div data-sort='title' onClick={this.handleClick}>Сортировка по title</div>
@@ -100,14 +106,15 @@ class Table extends React.Component<IStoreState> {
     }
 }
 
-
 const mapStateToProps = (state: IStoreState) => ({
     list: state.list
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<ISort>) => bindActionCreators({
-    sortList: sortList,
-}, dispatch);
+const mapDispatchToProps = (dispatch: Dispatch<ISort>) => {
+    return {
+        sortList: bindActionCreators(sortList, dispatch)
+    }
+};
 
+export default connect<IStoreState, IAction, {}>(mapStateToProps, mapDispatchToProps)(Table);
 
-export default connect(mapStateToProps, mapDispatchToProps)(Table);
