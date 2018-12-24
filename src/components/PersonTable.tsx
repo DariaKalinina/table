@@ -2,14 +2,13 @@ import * as React from 'react';
 import {Action} from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 // import TableRow from './TableRow';
-import {
-    asyncLoadPerson,
-} from "../AC";
+
 // import { bindActionCreators, Dispatch } from "redux";
 import {connect} from "react-redux";
 import { PersonListState } from "../store/storeTypes";
 
 import './../style/table.css';
+import {asyncLoadPerson} from "../AC";
 
 interface PersonTableStore {
     personList: PersonListState[],
@@ -27,7 +26,6 @@ class Table extends React.Component<OwnProps> {
         super(props);
 
         this.props.asyncLoadPerson();
-        console.log(this.props.asyncLoadPerson());
     }
 
     handleClick = (e: React.MouseEvent<HTMLDivElement>): void | undefined => {

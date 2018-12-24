@@ -1,14 +1,14 @@
 import {Action, ActionCreator} from 'redux';
-import { ThunkDispatch } from 'redux-thunk';
+// import { ThunkDispatch } from 'redux-thunk';
 
 import {PersonListState } from "../store/storeTypes";
 
-interface PersonTableStore {
-    personList: PersonListState[],
-    loadPersonList: () => ActionCreator<Action>,
-    successLoadPersonList: (data: PersonListState[]) => ActionCreator<Action>,
-    errorLoadPersonList: (errorMessage: string) => ActionCreator<Action>,
-}
+// interface PersonTableStore {
+//     personList: PersonListState[],
+//     loadPersonList: () => ActionCreator<Action>,
+//     successLoadPersonList: (data: PersonListState[]) => ActionCreator<Action>,
+//     errorLoadPersonList: (errorMessage: string) => ActionCreator<Action>,
+// }
 
 export enum Key{
   SORT = 'SORT',
@@ -44,7 +44,6 @@ export const sortProductList: ActionCreator<Action> = (sortValue: string) => ({
 
 export const loadPersonList: ActionCreator<Action> = () => ({
     type: Key.LOAD,
-    payload: []
 });
 
 export const errorLoadPersonList: ActionCreator<Action> = (errorMessage: string) => ({
@@ -58,23 +57,48 @@ export const successLoadPersonList: ActionCreator<Action> = (data: PersonListSta
 });
 
 
-export const asyncLoadPerson = () => {
+// export const asyncLoadPerson = () => {
+//     console.log('зашли');
+//     return async (dispatch: ThunkDispatch<PersonTableStore, void, Action>) => {
+//         dispatch(loadPersonList);
+//         console.log('пытаемся');
+//         try {
+//             const response = await fetch('https://jsonplaceholder.typicode.com/users');
+//             console.log('response', response);
+//             const data = await response.json();
+//             console.log('data', data);
+//             dispatch(successLoadPersonList(data));
+//         } catch (e) {
+//             console.log('Error: ', e);
+//             dispatch(errorLoadPersonList('Что-то пошло не так...'));
+//         }
+//     }
+// };
+
+export const asyncLoadPerson = () => () => {
     console.log('зашли');
-    return async (dispatch: ThunkDispatch<PersonTableStore, void, Action>) => {
-        dispatch(loadPersonList);
-        console.log('пытаемся');
-        try {
-            const response = await fetch('https://jsonplaceholder.typicode.com/users');
-            console.log('response', response);
-            const data = await response.json();
-            console.log('data', data);
-            dispatch(successLoadPersonList(data));
-        } catch (e) {
-            console.log('Error: ', e);
-            dispatch(errorLoadPersonList('Что-то пошло не так...'));
-        }
-    }
+    // dispatch(loadPersonList);
+
+    // fetch('https://jsonplaceholder.typicode.com/users')
+    //     .then(res => {
+    //         console.log('1', res);
+    //         if (res.status < 200 || res.status > 299) {
+    //             throw new Error(`Uncorrect status code: ${res.status}`);
+    //         }
+    //         console.log('2', res.json());
+    //         return res.json();
+    //     })
+    //     .then(data => dispatch(successLoadPersonList(data)))
+    //     .catch(error => {
+    //         console.error(error);
+    //         dispatch(errorLoadPersonList('Что-то пошло не так...'));
+    //     });
+
 };
+
+
+
+
 
 
 
