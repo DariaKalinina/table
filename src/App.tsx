@@ -3,7 +3,7 @@ import Footer from './components/Footer';
 import Header from './components/Header';
 import Table from './components/Table';
 
-import './App.css';
+import './style/app.css';
 
 class App extends React.Component {
 

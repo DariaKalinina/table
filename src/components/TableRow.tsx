@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { ProductListState } from "../store/storeTypes";
 
+import './../style/table.css';
+
 interface StoreRow {
     item: ProductListState
 }

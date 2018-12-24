@@ -1,9 +1,11 @@
 import * as React from 'react';
 import TableRow from './TableRow';
-import { SortListAction, sortProductList } from "../AC";
-import { bindActionCreators, Dispatch } from "redux";
-import { connect } from "react-redux";
-import { ProductListState } from "../store/storeTypes";
+import {SortListAction, sortProductList} from "../AC";
+import {bindActionCreators, Dispatch} from "redux";
+import {connect} from "react-redux";
+import {ProductListState} from "../store/storeTypes";
+
+import './../style/table.css';
 
 interface StoreTable {
     productList: ProductListState[],
@@ -24,7 +26,7 @@ class Table extends React.Component<OwnProps> {
 
     handleClick = (e: React.MouseEvent<HTMLDivElement>): void | undefined => {
         const targetElement = e.currentTarget.dataset['sort'];
-        const { sortProductList } = this.props;
+        const {sortProductList} = this.props;
 
         if (targetElement) {
             sortProductList(targetElement);
@@ -32,26 +34,23 @@ class Table extends React.Component<OwnProps> {
     };
 
 
-    render(){
-        const { productList } = this.props;
+    render() {
+        const {productList} = this.props;
         return (
             <div className="table">
-                <div data-sort='title' onClick={this.handleClick}>Сортировка по title</div>
-                <div data-sort='amount' onClick={this.handleClick}>Сортировка по amount</div>
-                <div data-sort='importer' onClick={this.handleClick}>Сортировка по importer</div>
-                <div data-sort='weight' onClick={this.handleClick}>Сортировка по weight</div>
-                <div data-sort='exist' onClick={this.handleClick}>Сортировка по exist</div>
-                <table>
-                    <tbody>
-                        <tr>
-                            <th>Название</th>
-                            <th>Количество</th>
-                            <th>Имортер</th>
-                            <th>Вес</th>
-                            <th>Наличие на складе</th>
+                <table className="table">
+                    <thead className="table__head">
+                        <tr className="table__row">
+                            <th className="table__header" data-sort='title' onClick={this.handleClick}>Название</th>
+                            <th className="table__header" data-sort='amount' onClick={this.handleClick}>Количество</th>
+                            <th className="table__header" data-sort='importer' onClick={this.handleClick}>Имортер</th>
+                            <th className="table__header" data-sort='weight' onClick={this.handleClick}>Вес</th>
+                            <th className="table__header" data-sort='exist' onClick={this.handleClick}>Наличие</th>
                         </tr>
+                    </thead>
+                    <tbody className="table__body">
                         {
-                            productList.map( (item: ProductListState, index: number) => {
+                            productList.map((item: ProductListState, index: number) => {
                                 return <TableRow key={index} item={item}/>;
                             })
                         }
