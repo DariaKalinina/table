@@ -1,21 +1,17 @@
 import * as React from 'react';
-import {Action} from 'redux';
-import { ThunkDispatch } from 'redux-thunk';
-// import TableRow from './TableRow';
-
-// import { bindActionCreators, Dispatch } from "redux";
-import {connect} from "react-redux";
+import {bindActionCreators, Dispatch} from 'redux';
+import { connect } from "react-redux";
 import { PersonListState } from "../store/storeTypes";
 
 import './../style/table.css';
-import {asyncLoadPerson} from "../AC";
+import {asyncLoadPerson, PersonListActions} from "../AC";
 
 interface PersonTableStore {
     personList: PersonListState[],
 }
 
 interface PersonTableAction {
-    asyncLoadPerson: () => void;
+    asyncLoadPerson: () => (dispatch: Dispatch<PersonListActions>) => Promise<void>;
 }
 
 type OwnProps = PersonTableStore & PersonTableAction;
@@ -25,10 +21,14 @@ class Table extends React.Component<OwnProps> {
     constructor(props: OwnProps) {
         super(props);
 
+        console.log('props 1', props);
+
         this.props.asyncLoadPerson();
+
+        console.log('props 2', props);
     }
 
-    handleClick = (e: React.MouseEvent<HTMLDivElement>): void | undefined => {
+    handleClick = (e: React.MouseEvent<HTMLDivElement>): void  => {
         console.log(e);
         // const targetElement = e.currentTarget.dataset['sort'];
     };
@@ -61,8 +61,9 @@ class Table extends React.Component<OwnProps> {
     }
 }
 
-const mapDispatchToProps = (dispatch: ThunkDispatch<PersonTableStore, void, Action>) => ({
-    asyncLoadPerson: () => dispatch(asyncLoadPerson),
+
+const mapDispatchToProps = (dispatch: Dispatch<PersonListActions>) => ({
+    asyncLoadPerson: bindActionCreators(asyncLoadPerson, dispatch)
 });
 
 const mapStateToProps = (state: PersonTableStore) => ({

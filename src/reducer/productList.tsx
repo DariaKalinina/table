@@ -1,5 +1,6 @@
 import { ProductListState } from "../store/storeTypes";
 import { Key, SortListAction } from "../AC";
+import defaultState from "../store/initialState";
 
 type sortFunction = (a: ProductListState, b: ProductListState) => number;
 
@@ -34,36 +35,8 @@ const sortListLikeBoolean = (value: string): sortFunction  => {
     }
 };
 
-
-const defaultState: ProductListState[] = [
-    {
-        amount: 1455.15,
-        exist: true,
-        id: 1,
-        importer: 'Russia',
-        title: 'apple',
-        weight: 0.15,
-    },
-    {
-        amount: 135.15,
-        exist: false,
-        id: 2,
-        importer: 'Russia',
-        title: 'carrot',
-        weight: 0.16,
-    },
-    {
-        amount: 1345.15,
-        exist: true,
-        id: 3,
-        importer: 'Brazil',
-        title: 'orange',
-        weight: 0.17,
-    },
-];
-
 export default function productList(
-        state: ProductListState[] = defaultState,
+        state = defaultState.productList,
         action: SortListAction
     ) {
     const {type, payload} = action;

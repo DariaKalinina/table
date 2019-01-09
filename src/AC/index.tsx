@@ -1,14 +1,5 @@
-import {Action, ActionCreator} from 'redux';
-// import { ThunkDispatch } from 'redux-thunk';
-
-import {PersonListState } from "../store/storeTypes";
-
-// interface PersonTableStore {
-//     personList: PersonListState[],
-//     loadPersonList: () => ActionCreator<Action>,
-//     successLoadPersonList: (data: PersonListState[]) => ActionCreator<Action>,
-//     errorLoadPersonList: (errorMessage: string) => ActionCreator<Action>,
-// }
+import {Dispatch} from 'redux';
+import {PersonListState} from "../store/storeTypes";
 
 export enum Key{
   SORT = 'SORT',
@@ -16,85 +7,78 @@ export enum Key{
   ERROR = 'ERROR',
   SUCCESS = 'SUCCESS',
 }
-
+///////////////////////////////////////////////////////
 export interface SortListAction {
-    readonly type: Key.SORT;
     readonly payload?: string;
+    readonly type: Key.SORT;
+}
+
+export interface ErrorLoadPersonListAction {
+    readonly payload?: {
+        errorMessage: string
+    };
+    readonly type: Key.ERROR;
+}
+
+export interface SuccessLoadPersonListAction {
+    readonly payload?: {
+        data: PersonListState[]
+    };
+    readonly type: Key.SUCCESS;
 }
 
 export interface LoadPersonListAction {
-    readonly type: Key.LOAD | Key.ERROR | Key.SUCCESS;
-    readonly payload: string | PersonListState[] | undefined;
+    readonly type: Key.LOAD;
+    readonly payload?: {
+        message: string
+    };
 }
-//
-// export interface ErrorLoadPersonListAction {
-//     readonly type: Key.ERROR;
-//     readonly payload: string;
-// }
-//
-// export interface SuccessLoadPersonListAction {
-//     readonly type: Key.SUCCESS;
-//     readonly payload: PersonListState[]
-// }
 
-export const sortProductList: ActionCreator<Action> = (sortValue: string) => ({
+export type PersonListActions = LoadPersonListAction | SuccessLoadPersonListAction | ErrorLoadPersonListAction;
+
+////////////////////////////////////////////////////////////////////////
+export const sortProductList = (sortValue: string): SortListAction => ({
     type: Key.SORT,
     payload: sortValue
 });
 
-export const loadPersonList: ActionCreator<Action> = () => ({
+export const loadPersonList = (message: string): LoadPersonListAction => ({
     type: Key.LOAD,
+    payload: {message}
 });
 
-export const errorLoadPersonList: ActionCreator<Action> = (errorMessage: string) => ({
+export const errorLoadPersonList = (errorMessage: string): ErrorLoadPersonListAction => ({
     type: Key.ERROR,
-    payload: errorMessage
+    payload: {errorMessage}
 });
 
-export const successLoadPersonList: ActionCreator<Action> = (data: PersonListState[]) => ({
+export const successLoadPersonList = (data: PersonListState[]): SuccessLoadPersonListAction => ({
     type: Key.SUCCESS,
-    payload: data
+    payload: {data}
 });
 
-
-// export const asyncLoadPerson = () => {
-//     console.log('зашли');
-//     return async (dispatch: ThunkDispatch<PersonTableStore, void, Action>) => {
-//         dispatch(loadPersonList);
-//         console.log('пытаемся');
-//         try {
-//             const response = await fetch('https://jsonplaceholder.typicode.com/users');
-//             console.log('response', response);
-//             const data = await response.json();
-//             console.log('data', data);
-//             dispatch(successLoadPersonList(data));
-//         } catch (e) {
-//             console.log('Error: ', e);
-//             dispatch(errorLoadPersonList('Что-то пошло не так...'));
-//         }
-//     }
-// };
-
-export const asyncLoadPerson = () => () => {
+/////////////////////////////////////////////////////////////
+export function asyncLoadPerson(): (dispatch: Dispatch<PersonListActions>) => Promise<void>  {
     console.log('зашли');
-    // dispatch(loadPersonList);
+    return async (dispatch: Dispatch<PersonListActions>) => {
+        dispatch(loadPersonList('load'));
+        console.log('пытаемся');
+        try {
+            const response = await fetch('https://jsonplaceholder.typicode.com/users');
+            console.log('response', response);
+            const data = await response.json();
+            console.log('data', data);
+            dispatch(successLoadPersonList(data));
+        } catch (e) {
+            console.log('Error: ', e);
+            dispatch(errorLoadPersonList('Что-то пошло не так...'));
+        }
+    }
+}
 
-    // fetch('https://jsonplaceholder.typicode.com/users')
-    //     .then(res => {
-    //         console.log('1', res);
-    //         if (res.status < 200 || res.status > 299) {
-    //             throw new Error(`Uncorrect status code: ${res.status}`);
-    //         }
-    //         console.log('2', res.json());
-    //         return res.json();
-    //     })
-    //     .then(data => dispatch(successLoadPersonList(data)))
-    //     .catch(error => {
-    //         console.error(error);
-    //         dispatch(errorLoadPersonList('Что-то пошло не так...'));
-    //     });
 
-};
+
+
 
 
 
