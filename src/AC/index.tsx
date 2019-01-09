@@ -62,7 +62,8 @@ export function asyncLoadPerson(): (dispatch: Dispatch<PersonListActions>) => Pr
     return async (dispatch: Dispatch<PersonListActions>) => {
         dispatch(loadPersonList('load'));
         try {
-            const response = await fetch('https://jsonplaceholder.typicode.com/users');
+            const url = 'https://jsonplaceholder.typicode.com/users';
+            const response = await fetch(url);
             const data = await response.json();
             dispatch(successLoadPersonList(data));
         } catch (e) {

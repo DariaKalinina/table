@@ -18,7 +18,7 @@ interface PersonTableAction {
 type OwnProps = PersonTableStore & PersonTableAction;
 
 
-class Table extends React.Component<OwnProps> {
+class PersonTable extends React.Component<OwnProps> {
     constructor(props: OwnProps) {
         super(props);
 
@@ -66,5 +66,5 @@ const mapStateToProps = (state: PersonTableStore) => ({
     personList: state.personList,
 });
 
-export default connect<PersonTableStore, PersonTableAction, {}>(mapStateToProps, mapDispatchToProps)(Table);
+export default connect<PersonTableStore, PersonTableAction, {}>(mapStateToProps, mapDispatchToProps)(PersonTable);
 

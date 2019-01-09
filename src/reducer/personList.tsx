@@ -14,15 +14,12 @@ export default function personList(
 
     switch (type) {
         case Key.ERROR:
-            console.log('ERROR payload', type, payload);
             return newState;
 
         case Key.LOAD:
-            console.log('LOAD payload', type, payload);
             return newState;
 
         case Key.SUCCESS:
-            console.log('SUCCESS payload', type, newState, payload.data);
             newState = [...payload.data];
             return newState;
     }

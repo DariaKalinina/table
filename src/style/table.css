@@ -1,6 +1,7 @@
 .table{
   width: 100%;
   border-collapse: collapse;
+  padding-bottom: 20px;
 }
 
 .table__head th:nth-child(1) {
