@@ -1,9 +1,13 @@
-import {Key, PersonListActions} from "../AC";
+import {Key} from "../AC";
 import defaultState from "../store/initialState";
+import {PersonListState} from "../store/storeTypes";
 
 export default function personList(
         state = defaultState.personList,
-        action: PersonListActions
+        action: {
+            type: string,
+            payload: {errorMessage: string, message: string, data: PersonListState[]}
+        }
     ) {
     const {type, payload} = action;
     let newState = [...state];
@@ -18,7 +22,8 @@ export default function personList(
             return newState;
 
         case Key.SUCCESS:
-            console.log('SUCCESS payload', type, newState, payload);
+            console.log('SUCCESS payload', type, newState, payload.data);
+            newState = [...payload.data];
             return newState;
     }
 

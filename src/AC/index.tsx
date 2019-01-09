@@ -14,14 +14,14 @@ export interface SortListAction {
 }
 
 export interface ErrorLoadPersonListAction {
-    readonly payload?: {
+    readonly payload: {
         errorMessage: string
     };
     readonly type: Key.ERROR;
 }
 
 export interface SuccessLoadPersonListAction {
-    readonly payload?: {
+    readonly payload: {
         data: PersonListState[]
     };
     readonly type: Key.SUCCESS;
@@ -29,7 +29,7 @@ export interface SuccessLoadPersonListAction {
 
 export interface LoadPersonListAction {
     readonly type: Key.LOAD;
-    readonly payload?: {
+    readonly payload: {
         message: string
     };
 }
@@ -59,15 +59,11 @@ export const successLoadPersonList = (data: PersonListState[]): SuccessLoadPerso
 
 /////////////////////////////////////////////////////////////
 export function asyncLoadPerson(): (dispatch: Dispatch<PersonListActions>) => Promise<void>  {
-    console.log('зашли');
     return async (dispatch: Dispatch<PersonListActions>) => {
         dispatch(loadPersonList('load'));
-        console.log('пытаемся');
         try {
             const response = await fetch('https://jsonplaceholder.typicode.com/users');
-            console.log('response', response);
             const data = await response.json();
-            console.log('data', data);
             dispatch(successLoadPersonList(data));
         } catch (e) {
             console.log('Error: ', e);

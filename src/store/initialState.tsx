@@ -27,54 +27,7 @@ const defaultState: Store = {
             weight: 0.17,
         },
     ],
-    personList: [
-        {
-            id: 1,
-            name: 'q',
-            username: 'q',
-            email: 'q',
-            address: {
-                street: 'q',
-                suite: 'q',
-                city: 'q',
-                zipcode: 'q',
-                geo: {
-                    lat: 'q',
-                    lng: 'q'
-                }
-            },
-            phone: 'q',
-            website: 'q',
-            company: {
-                name: 'q',
-                catchPhrase: 'q',
-                bs: 'q'
-            }
-        },
-        {
-            id: 2,
-            name: 'w',
-            username: 'w',
-            email: 'w',
-            address: {
-                street: 'w',
-                suite: 'w',
-                city: 'w',
-                zipcode: 'w',
-                geo: {
-                    lat: 'w',
-                    lng: 'w'
-                }
-            },
-            phone: 'w',
-            website: 'w',
-            company: {
-                name: 'w',
-                catchPhrase: 'w',
-                bs: 'w'
-            }
-        }
-    ],
+    personList: [],
 };
 
 export default defaultState;

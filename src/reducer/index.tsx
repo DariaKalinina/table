@@ -5,5 +5,5 @@ import productList from './productList';
 
 export default combineReducers<Store>({
     productList,
-    personList
+    personList,
 })
