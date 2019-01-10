@@ -1,6 +1,6 @@
 import { ProductListState } from "../store/storeTypes";
-import { Key, SortListAction } from "../AC";
 import defaultState from "../store/initialState";
+import { Key, SortListAction } from "../AC";
 
 type sortFunction = (a: ProductListState, b: ProductListState) => number;
 

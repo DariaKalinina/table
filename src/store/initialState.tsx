@@ -1,4 +1,4 @@
-import {Store} from "./storeTypes";
+import { Store } from "./storeTypes";
 
 const defaultState: Store = {
     productList: [

@@ -1,15 +1,19 @@
-import {Key} from "../AC";
+import { Key } from "../AC";
 import defaultState from "../store/initialState";
-import {PersonListState} from "../store/storeTypes";
+import { PersonListState } from "../store/storeTypes";
 
 export default function personList(
         state = defaultState.personList,
         action: {
             type: string,
-            payload: {errorMessage: string, message: string, data: PersonListState[]}
+            payload: {
+                errorMessage: string,
+                message: string,
+                data: PersonListState[]
+            }
         }
     ) {
-    const {type, payload} = action;
+    const { type, payload } = action;
     let newState = [...state];
 
     switch (type) {

@@ -1,11 +1,11 @@
 import * as React from 'react';
-import {bindActionCreators, Dispatch} from 'redux';
+import { bindActionCreators, Dispatch } from 'redux';
 import { connect } from "react-redux";
+import { asyncLoadPerson, PersonListActions } from "../AC";
 import { PersonListState } from "../store/storeTypes";
+import PersonRow from "./PersonRow";
 
 import './../style/table.css';
-import {asyncLoadPerson, PersonListActions} from "../AC";
-import PersonRow from "./PersonRow";
 
 interface PersonTableStore {
     personList: PersonListState[],
@@ -21,14 +21,12 @@ type OwnProps = PersonTableStore & PersonTableAction;
 class PersonTable extends React.Component<OwnProps> {
     constructor(props: OwnProps) {
         super(props);
-
         this.props.asyncLoadPerson();
     }
 
     handleClick = (e: React.MouseEvent<HTMLDivElement>): void  => {
-        console.log(e);
+        e.preventDefault()
     };
-
 
     render() {
         const { personList } = this.props;
@@ -47,7 +45,7 @@ class PersonTable extends React.Component<OwnProps> {
                     <tbody className="table__body">
                         {
                             personList.map((item: PersonListState) => {
-                                return <PersonRow key={item.id} item={item}/>;
+                                return <PersonRow key={ item.id } item={ item }/>;
                             })
                         }
                     </tbody>

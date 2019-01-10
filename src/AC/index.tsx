@@ -1,5 +1,5 @@
-import {Dispatch} from 'redux';
-import {PersonListState} from "../store/storeTypes";
+import { Dispatch } from 'redux';
+import { PersonListState } from "../store/storeTypes";
 
 export enum Key{
   SORT = 'SORT',
@@ -7,7 +7,7 @@ export enum Key{
   ERROR = 'ERROR',
   SUCCESS = 'SUCCESS',
 }
-///////////////////////////////////////////////////////
+
 export interface SortListAction {
     readonly payload?: string;
     readonly type: Key.SORT;
@@ -36,6 +36,7 @@ export interface LoadPersonListAction {
 
 export type PersonListActions = LoadPersonListAction | SuccessLoadPersonListAction | ErrorLoadPersonListAction;
 
+
 ////////////////////////////////////////////////////////////////////////
 export const sortProductList = (sortValue: string): SortListAction => ({
     type: Key.SORT,
@@ -44,20 +45,20 @@ export const sortProductList = (sortValue: string): SortListAction => ({
 
 export const loadPersonList = (message: string): LoadPersonListAction => ({
     type: Key.LOAD,
-    payload: {message}
+    payload: { message }
 });
 
 export const errorLoadPersonList = (errorMessage: string): ErrorLoadPersonListAction => ({
     type: Key.ERROR,
-    payload: {errorMessage}
+    payload: { errorMessage }
 });
 
 export const successLoadPersonList = (data: PersonListState[]): SuccessLoadPersonListAction => ({
     type: Key.SUCCESS,
-    payload: {data}
+    payload: { data }
 });
 
-/////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
 export function asyncLoadPerson(): (dispatch: Dispatch<PersonListActions>) => Promise<void>  {
     return async (dispatch: Dispatch<PersonListActions>) => {
         dispatch(loadPersonList('load'));

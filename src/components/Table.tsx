@@ -1,9 +1,9 @@
 import * as React from 'react';
-import TableRow from './TableRow';
-import {SortListAction, sortProductList} from "../AC";
 import {bindActionCreators, Dispatch} from "redux";
 import {connect} from "react-redux";
+import {SortListAction, sortProductList} from "../AC";
 import {ProductListState} from "../store/storeTypes";
+import TableRow from './TableRow';
 
 import './../style/table.css';
 
@@ -26,7 +26,7 @@ class Table extends React.Component<OwnProps> {
 
     handleClick = (e: React.MouseEvent<HTMLDivElement>): void | undefined => {
         const targetElement = e.currentTarget.dataset['sort'];
-        const {sortProductList} = this.props;
+        const { sortProductList } = this.props;
 
         if (targetElement) {
             sortProductList(targetElement);
@@ -35,7 +35,7 @@ class Table extends React.Component<OwnProps> {
 
 
     render() {
-        const {productList} = this.props;
+        const { productList } = this.props;
         return (
             <div className="table">
                 <table className="table">
@@ -51,7 +51,7 @@ class Table extends React.Component<OwnProps> {
                     <tbody className="table__body">
                         {
                             productList.map((item: ProductListState, index: number) => {
-                                return <TableRow key={index} item={item}/>;
+                                return <TableRow key={ index } item={ item }/>;
                             })
                         }
                     </tbody>
