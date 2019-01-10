@@ -59,12 +59,12 @@ export const successLoadPersonList = (data: PersonListState[]): SuccessLoadPerso
 });
 
 ////////////////////////////////////////////////////////////////////////
-export function asyncLoadPerson(): (dispatch: Dispatch<PersonListActions>) => Promise<void>  {
+export function asyncLoadPerson(pageNumber: number, sortParameter: string): (dispatch: Dispatch<PersonListActions>) => Promise<void>  {
     return async (dispatch: Dispatch<PersonListActions>) => {
         dispatch(loadPersonList('load'));
         try {
-            const url = 'https://jsonplaceholder.typicode.com/users';
-            const response = await fetch(url);
+            const url = 'https://jsonplaceholder.typicode.com/users?_limit=5';
+            const response = await fetch(url + '&_page=' + pageNumber + '&_sort=' + sortParameter);
             const data = await response.json();
             dispatch(successLoadPersonList(data));
         } catch (e) {

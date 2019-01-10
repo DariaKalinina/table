@@ -1,0 +1,12 @@
+.footer{
+  display: flex;
+  justify-content: center;
+}
+
+.footer__button{
+  display: block;
+  height: 40px;
+  width: 40px;
+  font-size: 20px;
+  text-decoration: none;
+}

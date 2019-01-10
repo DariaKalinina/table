@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { bindActionCreators, Dispatch } from 'redux';
 import { connect } from "react-redux";
+import Footer from "./Footer";
 import { asyncLoadPerson, PersonListActions } from "../AC";
 import { PersonListState } from "../store/storeTypes";
 import PersonRow from "./PersonRow";
@@ -11,21 +12,32 @@ interface PersonTableStore {
     personList: PersonListState[],
 }
 
+interface State {
+    sortParameter: string,
+}
+
 interface PersonTableAction {
-    asyncLoadPerson: () => (dispatch: Dispatch<PersonListActions>) => Promise<void>;
+    asyncLoadPerson: (pageNumber: number, sortParameter: string) => (dispatch: Dispatch<PersonListActions>) => Promise<void>;
 }
 
 type OwnProps = PersonTableStore & PersonTableAction;
 
-
-class PersonTable extends React.Component<OwnProps> {
+class PersonTable extends React.Component<OwnProps, State> {
     constructor(props: OwnProps) {
         super(props);
-        this.props.asyncLoadPerson();
+        this.props.asyncLoadPerson(1, 'id');
+
+        this.state = {
+            sortParameter: 'id'
+        }
     }
 
     handleClick = (e: React.MouseEvent<HTMLDivElement>): void  => {
-        e.preventDefault()
+        e.preventDefault();
+        const targetValue = e.currentTarget.dataset['sort'];
+        const sortParameter = targetValue ? targetValue : 'id';
+        this.props.asyncLoadPerson(1, sortParameter);
+        this.setState({sortParameter })
     };
 
     render() {
@@ -37,9 +49,9 @@ class PersonTable extends React.Component<OwnProps> {
                         <tr className="table__row">
                             <th className="table__header" data-sort='name' onClick={this.handleClick}>Имя</th>
                             <th className="table__header" data-sort='email' onClick={this.handleClick}>Email</th>
-                            <th className="table__header" data-sort='addressCity' onClick={this.handleClick}>Город</th>
+                            <th className="table__header" data-sort='address.city' onClick={this.handleClick}>Город</th>
                             <th className="table__header" data-sort='phone' onClick={this.handleClick}>Телефон</th>
-                            <th className="table__header" data-sort='companyName' onClick={this.handleClick}>Компания</th>
+                            <th className="table__header" data-sort='company.name' onClick={this.handleClick}>Компания</th>
                         </tr>
                     </thead>
                     <tbody className="table__body">
@@ -50,6 +62,7 @@ class PersonTable extends React.Component<OwnProps> {
                         }
                     </tbody>
                 </table>
+                <Footer sortParameter={this.state.sortParameter}/>
             </div>
         );
     }
