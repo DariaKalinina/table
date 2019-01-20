@@ -2,29 +2,31 @@ import * as React from 'react';
 import {bindActionCreators, Dispatch} from "redux";
 import {connect} from "react-redux";
 import {SortListAction, sortProductList} from "../AC";
-import {ProductListState} from "../store/storeTypes";
+import {ProductListState, Store} from "../store/storeTypes";
 import TableRow from './TableRow';
 
 import './../style/table.css';
 
-interface StoreTable {
+interface OwnProps {}
+
+interface StoreTable { // strange interface naming
     productList: ProductListState[],
 }
 
-interface TableAction {
+interface TableAction { // strange interface naming
     sortProductList: (sortValue: string) => SortListAction;
 }
 
-type OwnProps = StoreTable & TableAction;
+type Props = OwnProps & StoreTable & TableAction; // not obvious type naming
 
 
-class Table extends React.Component<OwnProps> {
-    constructor(props: OwnProps) {
+class Table extends React.Component<Props> {
+    constructor(props: Props) {
         super(props);
         this.handleClick = this.handleClick.bind(this);
     }
 
-    handleClick = (e: React.MouseEvent<HTMLDivElement>): void | undefined => {
+    handleClick(e: React.MouseEvent<HTMLDivElement>): void | undefined {
         const targetElement = e.currentTarget.dataset['sort'];
         const { sortProductList } = this.props;
 
@@ -61,11 +63,11 @@ class Table extends React.Component<OwnProps> {
     }
 }
 
-const mapStateToProps = (state: StoreTable) => ({
+const mapStateToProps = (state: Store): StoreTable  => ({
     productList: state.productList
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<SortListAction>) => {
+const mapDispatchToProps = (dispatch: Dispatch<SortListAction>): TableAction => {
     return {
         sortProductList: bindActionCreators(sortProductList, dispatch)
     }

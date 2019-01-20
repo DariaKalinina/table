@@ -13,7 +13,7 @@ interface PersonTableStore {
 }
 
 interface State {
-    sortParameter: string,
+    readonly sortParameter: string,
 }
 
 interface PersonTableAction {

@@ -65,10 +65,10 @@ export function asyncLoadPerson(pageNumber: number, sortParameter: string): (dis
         try {
             const url = 'https://jsonplaceholder.typicode.com/users?_limit=5';
             const response = await fetch(url + '&_page=' + pageNumber + '&_sort=' + sortParameter);
-            const data = await response.json();
+            const data = await response.json(); // check for correct response
             dispatch(successLoadPersonList(data));
         } catch (e) {
-            console.log('Error: ', e);
+            console.log('Error: ', e.code);
             dispatch(errorLoadPersonList('Что-то пошло не так...'));
         }
     }

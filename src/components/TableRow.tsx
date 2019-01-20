@@ -7,19 +7,17 @@ interface StoreRow {
     item: ProductListState
 }
 
-class TableRow extends React.Component<StoreRow> {
-    render() {
-        const { item } = this.props;
-        return (
-            <tr className="table__row">
-                <td className="table__item">{ item.title }</td>
-                <td className="table__item">{ item.amount }</td>
-                <td className="table__item">{ item.importer }</td>
-                <td className="table__item">{ item.weight }</td>
-                <td className="table__item">{ item.exist ? 'Есть' : 'Нет' }</td>
-            </tr>
-        );
-    }
+const TableRow: React.FunctionComponent<StoreRow> = (props) => {
+    const { item } = props;
+    return (
+        <tr className="table__row">
+            <td className="table__item">{ item.title }</td>
+            <td className="table__item">{ item.amount }</td>
+            <td className="table__item">{ item.importer }</td>
+            <td className="table__item">{ item.weight }</td>
+            <td className="table__item">{ item.exist ? 'Есть' : 'Нет' }</td>
+        </tr>
+    );
 }
 
 export default TableRow;
